@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>topological sorting program in javascript</h2>
+</body>
+<script>
+
+
+	class Graph{
+
+		
+		constructor(v)
+		{
+			
+			this.Vertx = v
+
+			
+			this.adj = new Array(this.Vertx)
+			for (let i = 0 ; i < this.Vertx ; i+=1){
+				this.adj[i] = new Array()
+			}
+		}
+
+		
+		addEdge(v, w){
+			this.adj[v].push(w)
+		}
+
+		
+		topoUtil(v, visited, stack)
+		{
+			visited[v] = true;
+			let i = 0;
+
+			for(i = 0 ; i < this.adj[v].length ; i++){
+				if(!visited[this.adj[v][i]]){
+					this.topoUtil(this.adj[v][i], visited, stack)
+				}
+			}
+
+			
+			stack.push(v);
+		}
+
+		
+		topo()
+		{
+			let stack = new Array()
+
+			
+			let visited = new Array(this.Vertx);
+			for (let i = 0 ; i < this.Vertx ; i++){
+				visited[i] = false;
+			}
+
+			
+			for (let i = 0 ; i < this.Vertx ; i++){
+				if (visited[i] == false){
+					this.topoUtil(i, visited, stack);
+				}
+			}
+
+			
+			while (stack.length != 0){
+				console.log(stack.pop() + " ")
+			}
+		}
+	}
+
+	
+	var g = new Graph(6)
+	g.addEdge(5, 2)
+	g.addEdge(5, 0)
+	g.addEdge(4, 0)
+	g.addEdge(4, 1)
+	g.addEdge(2, 3)
+	g.addEdge(3, 1)
+        g.addEdge(2, 0)
+        g.addEdge(3, 0)
+	
+	console.log(" Topological sort ")
+	
+	
+	g.topo()
+	
+	
+</script>
+</html>
